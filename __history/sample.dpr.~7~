@@ -1,0 +1,27 @@
+program sample;
+
+uses
+  Vcl.Forms,
+  Umain in 'Umain.pas' {MainForm},
+  Usplash in 'Usplash.pas' {SplashForm},
+  Vcl.Themes,
+  Vcl.Styles,
+  Udm in 'Udm.pas' {dm: TDataModule},
+  Uinsa in 'Uinsa.pas' {InsaForm},
+  Udept in 'Udept.pas' {DeptForm};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  TStyleManager.TrySetStyle('Golden Graphite');
+  SplashForm := TSplashForm.create(application);
+  SplashForm.Show;
+  SplashForm.Refresh;
+  Application.CreateForm(TMainForm, MainForm);
+  Application.CreateForm(Tdm, dm);
+  splashForm.Hide;
+  splashform.Free;
+  Application.Run;
+end.

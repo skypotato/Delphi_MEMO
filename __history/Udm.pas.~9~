@@ -1,0 +1,79 @@
+unit Udm;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.IB,
+  FireDAC.Phys.IBDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
+  FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, FireDAC.Phys.IBBase, data.sqltimst,
+  FireDAC.Comp.UI;
+
+type
+  Tdm = class(TDataModule)
+    FDConnection1: TFDConnection;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    FDPhysIBDriverLink1: TFDPhysIBDriverLink;
+    Dept: TFDTable;
+    DeptSource: TDataSource;
+    Insa: TFDTable;
+    InsaSource: TDataSource;
+    InsaID: TIntegerField;
+    InsaNAME: TStringField;
+    InsaAGE: TSmallintField;
+    InsaDEPT_CODE: TStringField;
+    InsaCLASS: TStringField;
+    InsaIPSA_DATE: TSQLTimeStampField;
+    InsaSALARY: TIntegerField;
+    InsaPHOTO: TBlobField;
+    InsaGRADE: TStringField;
+    Insatax: TFloatField;
+    procedure InsaCalcFields(DataSet: TDataSet);
+    procedure InsaNewRecord(DataSet: TDataSet);
+    procedure InsaBeforeInsert(DataSet: TDataSet);
+    procedure InsaSourceStateChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dm: Tdm;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses Uinsa;
+
+{$R *.dfm}
+
+procedure Tdm.InsaBeforeInsert(DataSet: TDataSet);
+begin
+  insaForm.DBEdit1.setfocus;
+end;
+
+procedure Tdm.InsaCalcFields(DataSet: TDataSet);
+begin
+  insatax.Value := insasalary.value * 0.1;
+end;
+
+procedure Tdm.InsaNewRecord(DataSet: TDataSet);
+begin
+  insasalary.Value := 3000000;
+  insaGrade.value := '1';
+  insaIpsa_date.Value := DateTimeToSqlTimestamp(now);
+end;
+
+procedure Tdm.InsaSourceStateChange(Sender: TObject);
+begin
+   insaform.button1.Enabled := insa.State = dsbrowse;
+   insaform.button2.Enabled := insa.State = dsbrowse;
+   insaform.button3.Enabled := insa.state in [dsinsert, dsedit];
+   insaform.button4.Enabled := insa.state in [dsinsert, dsedit];
+end;
+
+end.

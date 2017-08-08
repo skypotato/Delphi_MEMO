@@ -1,0 +1,29 @@
+program sample;
+
+uses
+  Vcl.Forms,
+  Umain in 'Umain.pas' {MainForm},
+  Usplash in 'Usplash.pas' {SplashForm},
+  Vcl.Themes,
+  Vcl.Styles,
+  Udm in 'Udm.pas' {dm: TDataModule},
+  Uinsa in 'Uinsa.pas' {InsaForm},
+  Udept in 'Udept.pas' {DeptForm},
+  Utrans in 'Utrans.pas' {TransForm},
+  Uupdateform in 'Uupdateform.pas' {updateform},
+  Utree in 'Utree.pas' {TreeForm};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  SplashForm := TSplashForm.create(application);
+  SplashForm.Show;
+  SplashForm.Refresh;
+  Application.CreateForm(TMainForm, MainForm);
+  Application.CreateForm(Tdm, dm);
+  splashForm.Hide;
+  splashform.Free;
+  Application.Run;
+end.

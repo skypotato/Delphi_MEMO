@@ -1,0 +1,19 @@
+program sample;
+
+uses
+  Vcl.Forms,
+  Umain in 'Umain.pas' {MainForm},
+  Usplash in 'Usplash.pas' {SplashForm},
+  Vcl.Themes,
+  Vcl.Styles;
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  TStyleManager.TrySetStyle('Golden Graphite');
+  Application.CreateForm(TMainForm, MainForm);
+  Application.CreateForm(TSplashForm, SplashForm);
+  Application.Run;
+end.

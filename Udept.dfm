@@ -1,0 +1,182 @@
+object DeptForm: TDeptForm
+  Left = 0
+  Top = 0
+  Caption = 'DeptForm'
+  ClientHeight = 378
+  ClientWidth = 560
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object DBGrid1: TDBGrid
+    Left = 24
+    Top = 48
+    Width = 513
+    Height = 120
+    DataSource = dm.DeptSource
+    Options = [dgEditing, dgAlwaysShowEditor, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 24
+    Top = 8
+    Width = 510
+    Height = 25
+    DataSource = dm.DeptSource
+    TabOrder = 1
+  end
+  object PageControl1: TPageControl
+    Left = 24
+    Top = 176
+    Width = 513
+    Height = 193
+    ActivePage = TabSheet2
+    TabOrder = 2
+    object TabSheet1: TTabSheet
+      Caption = #49345#49464#51312#54924
+      object DBGrid2: TDBGrid
+        Left = 0
+        Top = 0
+        Width = 505
+        Height = 165
+        Align = alClient
+        DataSource = dm.InsaQuerySource
+        Options = [dgEditing, dgAlwaysShowEditor, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = #46321#47197'('#51200#51109#54532#47196#49884#51200')'
+      ImageIndex = 1
+      object Label1: TLabel
+        Left = 40
+        Top = 32
+        Width = 48
+        Height = 13
+        Caption = #48512#49436#53076#46300
+      end
+      object Label2: TLabel
+        Left = 40
+        Top = 72
+        Width = 36
+        Height = 13
+        Caption = #48512#49436#47749
+      end
+      object Label3: TLabel
+        Left = 40
+        Top = 112
+        Width = 30
+        Height = 13
+        Caption = #54016'  '#47749
+      end
+      object Edit1: TEdit
+        Left = 112
+        Top = 24
+        Width = 185
+        Height = 25
+        TabOrder = 0
+      end
+      object Edit2: TEdit
+        Left = 112
+        Top = 64
+        Width = 185
+        Height = 25
+        TabOrder = 1
+      end
+      object Edit3: TEdit
+        Left = 112
+        Top = 112
+        Width = 185
+        Height = 25
+        TabOrder = 2
+      end
+      object Button1: TButton
+        Left = 352
+        Top = 24
+        Width = 121
+        Height = 33
+        Caption = #46321#47197
+        TabOrder = 3
+        OnClick = Button1Click
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = #51064#50896#49688
+      ImageIndex = 2
+      object StringGrid1: TStringGrid
+        Left = 0
+        Top = 0
+        Width = 505
+        Height = 165
+        Align = alClient
+        ColCount = 3
+        DrawingStyle = gdsClassic
+        TabOrder = 0
+        OnDrawCell = StringGrid1DrawCell
+        ExplicitLeft = 32
+        ExplicitTop = 24
+        ExplicitWidth = 320
+        ExplicitHeight = 120
+      end
+    end
+  end
+  object totQuery: TFDQuery
+    Connection = dm.FDConnection1
+    SQL.Strings = (
+      'select count(id) as total'
+      'from insa'
+      'where dept_code like :code')
+    Left = 392
+    Top = 104
+    ParamData = <
+      item
+        Name = 'CODE'
+        ParamType = ptInput
+      end>
+  end
+  object FDStoredProc1: TFDStoredProc
+    Connection = dm.FDConnection1
+    StoredProcName = 'INSERT_DEPT'
+    Left = 292
+    Top = 96
+    ParamData = <
+      item
+        Position = 1
+        Name = 'PCODE'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 4
+      end
+      item
+        Position = 2
+        Name = 'PDEPT'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 6
+      end
+      item
+        Position = 3
+        Name = 'PSECTION'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 8
+      end>
+  end
+end

@@ -1,0 +1,16 @@
+program sample;
+
+uses
+  Vcl.Forms,
+  Umain in 'Umain.pas' {MainForm},
+  Usplash in 'Usplash.pas' {SplashForm};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TMainForm, MainForm);
+  Application.CreateForm(TSplashForm, SplashForm);
+  Application.Run;
+end.
